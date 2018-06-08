@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { HubConnection } from '@aspnet/signalr';
 import { Document } from '../models/document';
 import { DocumentResult } from '../models/documentResult';
-import signalR = require('@aspnet/signalr');
+import * as signalR from  '@aspnet/signalr';
 
 @Component({
   selector: 'app-chat',
@@ -11,11 +11,11 @@ import signalR = require('@aspnet/signalr');
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  protected user: string;
-  protected message: string;
-  protected messages: Document[];
-  protected language: string;
-  protected isUserPresent: boolean;
+  public user: string;
+  public message: string;
+  public messages: Document[];
+  public language: string;
+  public isUserPresent: boolean;
   private hubConnection: HubConnection;
   private counter: number;
 
@@ -45,20 +45,20 @@ export class ChatComponent implements OnInit {
     this.hubConnection.start().catch(err => console.error(err.toString()));
   }
 
-  protected sendMessage(): void {
+  public sendMessage(): void {
     this.hubConnection
       .invoke('SendMessage', this.user, this.message)
       .then(() => (this.message = ''))
       .catch(err => console.error(err));
   }
 
-  protected continue(): void {
+  public continue(): void {
     if (this.user && this.language) {
       this.isUserPresent = true;
     }
   }
 
-  protected score(): void {
+  public score(): void {
     const elements = this.messages.filter(document => !document.scored);
     this.http.post<DocumentResult[]>(`${this.baseUrl}/api/textanalytics/sentiment`, elements).subscribe(result => {
       result.forEach((value, index, array) => {
@@ -70,7 +70,7 @@ export class ChatComponent implements OnInit {
     console.log('scored');
   }
 
-  protected getClass(document: Document): string {
+  public getClass(document: Document): string {
     if (!document.scored) {
       return '';
     }

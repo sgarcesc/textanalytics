@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HubConnection } from '@aspnet/signalr';
 import { KeyPhrase } from '../models/keyPhrase';
-import signalR = require('@aspnet/signalr');
+import * as signalR from '@aspnet/signalr';
 
 @Component({
   selector: 'app-keyPhrases',
@@ -10,9 +10,9 @@ import signalR = require('@aspnet/signalr');
   styleUrls: ['./keyPhrases.component.css']
 })
 export class KeyPhrasesComponent implements OnInit {
-  protected uploadSaveUrl; // should represent an actual API endpoint
-  protected fileNames: string[];
-  protected phrases: string[];
+  public uploadSaveUrl; // should represent an actual API endpoint
+  public fileNames: string[];
+  public phrases: string[];
   private hubConnection: HubConnection;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
@@ -36,7 +36,7 @@ export class KeyPhrasesComponent implements OnInit {
     this.hubConnection.start().catch(err => console.error(err.toString()));
   }
 
-  protected getPhrases(fileName: string) {
+  public getPhrases(fileName: string) {
     this.http.get<KeyPhrase>(`${this.baseUrl}/api/files/${fileName}`).subscribe(result => {
       this.phrases = result.keyPhrases.split(',');
     });
