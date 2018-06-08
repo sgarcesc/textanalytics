@@ -1,0 +1,12 @@
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.positive {
+  background-color: #89c402;
+}
+
+.negative {
+  background-color: #dd5900;
+}

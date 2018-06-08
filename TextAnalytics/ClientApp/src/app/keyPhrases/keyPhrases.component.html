@@ -1,0 +1,22 @@
+<kendo-upload
+  [saveUrl]="uploadSaveUrl">
+</kendo-upload>
+<br/>
+<div class="row">
+  <div class="col-md-3">
+    <ul id="files">
+      <li *ngFor="let fileName of fileNames">
+        <a (click)="getPhrases(fileName)">
+          <span>{{fileName}}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-9">
+    <ul id="phrases">
+      <li *ngFor="let phrase of phrases">
+        <span>{{phrase}}</span>
+      </li>
+    </ul>
+  </div>
+</div>
